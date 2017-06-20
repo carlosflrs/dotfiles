@@ -12,6 +12,7 @@ map <FO> zR
 map <FC> zM
 map <]p> p
 set mouse=a
+imap ` <Esc>
 
 " NOPs
 "noremap h <NOP>
@@ -37,10 +38,12 @@ set modelines=0
 set window=0
 set laststatus=4
 set background=dark
-set expandtab
-set tabstop=4
-set shiftwidth=4
-set autoindent
+
+set ts=4
+set sw=4
+set et
+set ai
+
 set noerrorbells
 set novisualbell
 set t_vb=
@@ -63,7 +66,7 @@ autocmd BufReadPost *
 "match OverLength /\%81v.\+/
 
 if v:version >= 700
-    autocmd BufNewFile,BufRead *.txt setlocal spell spelllang=en, colorcolumn=81
+    autocmd BufNewFile,BufRead *.txt setlocal spell spelllang=en, colorcolumn=80
 endif
 
 "java folding
@@ -80,21 +83,8 @@ endfunction
 
 autocmd Filetype java setlocal foldmethod=expr foldexpr=JavaFold()
 
-"python folding
-function! PythonFold()
-let line = getline(v:lnum)
-if match(line, '^def') > -1
-    return ">1"
-elseif match(line, '^class') > -1
-    return ">1"
-elseif match(line, '^if') > -1
-    return ">1"
-else 
-    return "="
-endif
-endfunction
-
-autocmd FileType python setlocal foldmethod=expr foldexpr=PythonFold()
+autocmd FileType python setlocal foldmethod=indent
+"autocmd FileType python setlocal colorcolumn=80
 
 "markdown folding
 function! MdFold()
@@ -126,5 +116,9 @@ autocmd Bufenter *.h setlocal foldmethod=syntax
 
 set tags=./tags;/,tags;/
 "hi Folded term=standout ctermfg=0 ctermbg=11 guifg=Blue guibg=Yellow
-hi Folded ctermbg=242
+"hi Folded ctermbg=7
+
+
+"grep word under cursor
+nnoremap <leader>g : silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<cr>:copen<cr>
 
