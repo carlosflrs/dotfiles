@@ -42,7 +42,6 @@ set ts=4
 set sw=4
 set et
 set ai
-set nowrap
 
 set noerrorbells
 set novisualbell
@@ -53,7 +52,6 @@ set ruler
 set number
 set cursorline
 set incsearch
-set relativenumber
 
 " persistent undo
 set undofile
@@ -64,6 +62,14 @@ autocmd BufReadPost *
             \   exe "normal! g`\"" |
             \ endif
 "highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+
+
+let g:terraform_align=1
+let g:terraform_fold_sections=1
+let g:terraform_remap_spacebar=1
+
+
+
 "match OverLength /\%81v.\+/
 
 if v:version >= 700
@@ -123,13 +129,4 @@ set tags=./tags;/,tags;/
 "grep word under cursor
 nnoremap <leader>g : silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<cr>:copen<cr>
 
-highlight ExtraWhitespace ctermbg=red guibg=red
-"autocmd Bufenter * match ExtraWhitespace /\s\+$/
-
-" terraform
-let g:terraform_align=1
-let g:terraform_fold_sections=1
-
-" Syntastic
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-nnoremap <C-w>C :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+set relativenumber
