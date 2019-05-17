@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 echo 'Installing pathogen.vim'
 mkdir -p ~/.vim/autoload ~/.vim/bundle && \
